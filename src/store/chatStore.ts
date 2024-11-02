@@ -120,6 +120,37 @@ export const useChatStore = create<ChatState>((set, get) => ({
     });
   },
 
+  editMessage: (msgId: string, chatId: string, newContent: string) => {
+    const { chats } = get();
+    const recursiveEditMessages = (messages: any[]): any[] => {
+      return messages.map((message) => {
+        if (message.id === msgId) {
+          return {
+            ...message,
+            content: newContent,
+          };
+        } else if (message.replay.length > 0) {
+          return {
+            ...message,
+            replay: recursiveEditMessages(message.replay),
+          };
+        }
+        return message;
+      });
+    };
+
+    set({
+      chats: chats.map((chat) =>
+        chat.id === chatId
+          ? {
+              ...chat,
+              messages: recursiveEditMessages(chat.messages),
+            }
+          : chat
+      ),
+    });
+  },
+
   setActiveChat: (chatId) => set({ activeChatId: chatId }),
   createGroup: (groupTitle, participants) => {
     const newGroup = {

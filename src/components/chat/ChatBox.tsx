@@ -21,12 +21,20 @@ export default function ChatBox() {
     }
   };
 
+
   return (
     <div className="flex flex-col h-screen relative  bg-background flex-grow">
       <div className="p-4 border-b">
         <h2 className="text-xl font-semibold">
           {activeChat?.title || "Select a chat"}
         </h2>
+        {activeChat?.isGroup && (
+          <div className="flex gap-1 ">
+            {activeChat.participants.map((user, index) => (
+              <p key={index}>{user},</p>
+            ))}
+          </div>
+        )}
       </div>
       <div className="flex flex-col align-bottom pb-36 h-full justify-end ">
         <ScrollArea className="flex-grow flex flex-col justify-end p-4">

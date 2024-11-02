@@ -4,6 +4,7 @@ import { Button } from "../ui/button";
 import { ReplyAll, Send, X } from "lucide-react";
 import { Input } from "../ui/input";
 import { ReplayBoxProps } from "../../types/type";
+import { EditMessageDialog } from "./EditMessageDialog";
 
 const ReplayBox: React.FC<ReplayBoxProps> = ({
   msg,
@@ -35,15 +36,18 @@ const ReplayBox: React.FC<ReplayBoxProps> = ({
         </div>
 
         {!isUser && replayingToId !== msg.id && limit !== 3 && (
-          <Button
-            variant="ghost"
-            size="sm"
-            className="self-start mt-1"
-            onClick={() => setReplayingToId(msg.id)}
-          >
-            <ReplyAll className="h-4 w-4 mr-1" />
-            Reply
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="self-start mt-1"
+              onClick={() => setReplayingToId(msg.id)}
+            >
+              <ReplyAll className="h-4 w-4 mr-1" />
+              Reply
+            </Button>
+            <EditMessageDialog chatId={activeChatId} msg={msg} />
+          </div>
         )}
       </div>
 
