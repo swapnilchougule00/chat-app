@@ -35,7 +35,7 @@ const ReplayBox: React.FC<ReplayBoxProps> = ({
           {msg.content}
         </div>
 
-        {!isUser && replayingToId !== msg.id && limit !== 3 && (
+        {!isUser && replayingToId !== msg.id && (
           <div className="flex items-center gap-2">
             <Button
               variant="ghost"
@@ -46,10 +46,10 @@ const ReplayBox: React.FC<ReplayBoxProps> = ({
               <ReplyAll className="h-4 w-4 mr-1" />
               Reply
             </Button>
-            <EditMessageDialog chatId={activeChatId} msg={msg} />
           </div>
         )}
       </div>
+      {limit !== 3 && <EditMessageDialog chatId={activeChatId} msg={msg} />}
 
       {replayingToId === msg.id && (
         <div className="mt-2 w-fit ml-14 flex items-center space-x-2">

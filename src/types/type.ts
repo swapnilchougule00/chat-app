@@ -35,6 +35,7 @@ export interface ChatState {
     chatId: string,
     userId: string
   ) => void;
+  editMessage: (msgId: string, chatId: string, newContent: string) => void;
   setActiveChat: (chatId: string) => void;
   createGroup: (groupTitle: string, participants: string[]) => void;
 }

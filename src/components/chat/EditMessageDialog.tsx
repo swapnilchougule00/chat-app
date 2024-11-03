@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import {
   Dialog,
@@ -10,7 +11,12 @@ import {
 import { Pen } from "lucide-react";
 import { useChatStore } from "../../store/chatStore";
 
-export const EditMessageDialog = ({ chatId, msg }) => {
+type editProps = {
+  chatId: string;
+  msg: any;
+};
+
+export const EditMessageDialog = ({ chatId, msg }: editProps) => {
   const { editMessage } = useChatStore();
 
   const [inputValue, setInputValue] = useState("");
@@ -18,7 +24,8 @@ export const EditMessageDialog = ({ chatId, msg }) => {
 
   const handleEditMessage = () => {
     if (inputValue) {
-      editMessage(msg.id, chatId, inputValue);
+      const msgId = msg?.id;
+      editMessage(msgId, chatId, inputValue);
       setInputValue("");
       setShowEditMessage(false);
     }
